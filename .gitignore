@@ -99,3 +99,10 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Pycharm
+.idea/
+
+# Custom ignore file(s)
+RnD/
+.pytest_cache/
