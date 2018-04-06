@@ -43,8 +43,8 @@ from BengaliPhoneticParser import BanglishToBengali
 
 
 banglish2bengali = BanglishToBengali()
-bengali_text = "ami banglay gan gai"
-print(banglish2bengali.parse(bengali_text.strip()))
+banglish_text = "ami banglay gan gai"
+print(banglish2bengali.parse(banglish_text.strip()))
 ```
 
 #### Banglish to Bengali Output
