@@ -20,7 +20,7 @@ A step by step series of examples that tell you have to get a development env ru
 Say what the step will be
 
 ```
-$[sudo] pip install BengaliPhoneticParser
+$[sudo] pip install bnbphoneticparser
 ```
 
 ### Example
