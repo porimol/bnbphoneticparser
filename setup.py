@@ -9,21 +9,16 @@ with open('README.md', 'r') as f:
 setup(
     name='bnbphoneticparser',
     version='0.1.0',
-    install_requires = ['BengaliPhoneticParser'],
+    install_requires = ['bnbphoneticparser'],
     package_dir = {
-        '': 'BengaliPhoneticParser'
+        '': 'bnbphoneticparser'
     },
-    packages = find_packages('BengaliPhoneticParser', exclude='tests'),
-    url='https://github.com/porimol/BengaliPhoneticParser',
+    packages = find_packages('bnbphoneticparser', exclude='tests'),
+    url='https://github.com/porimol/bnbphoneticparser',
     license='MIT License',
     author='Porimol Chandro',
     author_email='porimolchandroroy@gmail.com',
     description='Bengali Phonetic Parser',
     long_description=long_description,
-    keywords = [
-        'NLP',
-        'Python',
-        'Bengali to Banglish',
-        'Banglish to Bengali'
-    ],
+    keywords = ['NLP', 'Python', 'Bengali to Banglish', 'Banglish to Bengali'],
 )

@@ -1,6 +1,6 @@
 # coding=utf-8
 from unittest import TestCase
-from BengaliPhoneticParser import BanglishToBengali
+from bnbphoneticparser import BanglishToBengali
 
 
 class TestBanglishToBengali(TestCase):
