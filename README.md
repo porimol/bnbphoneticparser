@@ -18,6 +18,15 @@ Say what the step will be
 $[sudo] pip install bnbphoneticparser
 ```
 
+OR, git clone
+
+```
+$ git clone https://github.com/porimol/bnbphoneticparser.git
+
+$ cd bnbphoneticparser
+$ python setup.py install
+```
+
 ### Example
 
 #### Bengali to Banglish Example
