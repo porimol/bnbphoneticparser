@@ -8,11 +8,6 @@ This package will help you to convert Bengali text to Banglish as well as Bangli
 These instructions will get you a copy of the project up and running on your local machine for development, testing purposes and as well as in production machine. See deployment for notes on how to deploy the project on a live system.
 
 
-### Version
-```
-version=0.1.1
-```
-
 ### Installing
 
 A step by step series of examples that tell you have to get a development env running
