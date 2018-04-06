@@ -141,7 +141,7 @@ class BengaliToBanglish(BengaliPhoneticParser):
         for i in range(0, len(separated_word)):
             converted_text = converted_text + self.__convert(separated_word[i]) + " "
 
-        return converted_text.strip().lower()
+        return converted_text.strip()
 
 
 if __name__ == "__main__":

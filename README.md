@@ -45,7 +45,7 @@ print(bengali2banglish.parse(bengali_text.strip()))
 
 #### Bengali to Banglish Output
 ```
-ami bangladeshi
+aMi bangLadESi
 ```
 
 #### Banglish to Bengali Example
