@@ -35,7 +35,7 @@ $ python setup.py install
 #### Bengali to Banglish Example
 ```python
 # coding=utf-8
-from BengaliPhoneticParser import BengaliToBanglish
+from bnbphoneticparser import BengaliToBanglish
 
 
 bengali2banglish = BengaliToBanglish()
@@ -51,7 +51,7 @@ aMi bangLadESi
 #### Banglish to Bengali Example
 ```python
 # coding=utf-8
-from BengaliPhoneticParser import BanglishToBengali
+from bnbphoneticparser import BanglishToBengali
 
 
 banglish2bengali = BanglishToBengali()
