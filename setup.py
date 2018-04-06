@@ -8,7 +8,8 @@ with open('README.md', 'r') as f:
 
 setup(
     name='bnbphoneticparser',
-    version='0.1.1',
+    version='0.1.3',
+    python_requires='>3.0.0',
     install_requires = ['bnbphoneticparser'],
     package_dir = {
         '': 'bnbphoneticparser'
