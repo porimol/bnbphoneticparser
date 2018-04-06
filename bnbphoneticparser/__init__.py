@@ -1,2 +1,3 @@
 # coding=utf-8
-from .parser import BanglishToBengali, BengaliToBanglish
+from .bengalitobanglish import BengaliToBanglish
+from .banglishtobengali import BanglishToBengali
