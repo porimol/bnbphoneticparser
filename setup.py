@@ -7,7 +7,7 @@ with open('README.md', 'r') as f:
     long_description = f.read()
 
 setup(
-    name='BengaliPhoneticParser',
+    name='bnbphoneticparser',
     version='0.1.0',
     install_requires = ['BengaliPhoneticParser'],
     package_dir = {
