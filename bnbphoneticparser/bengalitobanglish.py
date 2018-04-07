@@ -57,10 +57,10 @@ class BengaliToBanglish(BengaliPhoneticParser):
                     if ofe == 0:
                         sx = sx.replace(sx[ofe:ofe + len(ch)], self.shoroborno_reverse_map[ch])
                     else:
-                        _prev_och = txt[ofe - 1]
-                        if ch == "ও" and self._is_sworborno(_prev_och) or self._is_kar(_prev_och):
+                        is_prev_one_kar_or_sworborno = self._is_sworborno(txt[ofe - 1]) or self._is_kar(txt[ofe - 1])
+                        if ch == "ও" and is_prev_one_kar_or_sworborno:
                             sx = sx.replace(sx[ofe:ofe + 1], "ও")
-                        elif self._is_sworborno(_prev_och) or self._is_kar(_prev_och) or _prev_och == "ও":
+                        elif is_prev_one_kar_or_sworborno or txt[ofe - 1] == "ও":
                             sx = sx.replace(sx[ofe:ofe + len(ch)], self.shoroborno_reverse_map[ch])
                         else:
                             if txt[ofe] != "ও":

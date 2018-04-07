@@ -14,26 +14,25 @@ class BanglishToBengali(BengaliPhoneticParser):
         sx += txt
         if ch == 'a':
             asx = ''
-            for i in range(0, len(txt)):
+            for i, _ch in enumerate(txt):
                 if i == 0:
-                    if txt[i] == 'a':
+                    if _ch == 'a':
                         asx += 'আ'
                     else:
-                        asx += txt[i]
+                        asx += _ch
                 else:
-                    if txt[i] == 'a':
-                        is_prev_one_kar_or_sworborno = self._is_sworborno(txt[i - 1]) or self._is_kar(txt[i - 1])
-                        is_prev_one_byanjon_borno = self._is_byanjonborno(txt[i - 1])
-
-                        if is_prev_one_kar_or_sworborno:
-                            if txt[i - 1] == 'আ' or txt[i - 1] == 'া' or txt[i - 1] == 'a' or txt[i - 1] == 'A':
+                    if _ch == 'a':
+                        _prev_ch = txt[i - 1]
+                        if self._is_sworborno(_prev_ch) or self._is_kar(_prev_ch):
+                            if _prev_ch == 'আ' or _prev_ch == 'া' or _prev_ch == 'a' or _prev_ch == 'A':
                                 asx += 'আ'
                             else:
                                 asx += 'য়া'
-                        elif is_prev_one_byanjon_borno:
+                        elif self._is_byanjonborno(_prev_ch):
                             asx += 'া'
                     else:
-                        asx += txt[i]
+                        asx += _ch
+
             return asx
         else:
             ofe = sx.find(ch, 0)
@@ -83,13 +82,14 @@ class BanglishToBengali(BengaliPhoneticParser):
         banglish_string = self.__change_x(banglish_string)
 
         for a_five_char in self.five_char:
-            banglish_string = self.__change(banglish_string, a_five_char, self.jukto_borno[a_five_char])
+            banglish_string = self._change_to(banglish_string, a_five_char, self.jukto_borno[a_five_char])
 
         for a_four_char in self.four_char:
-            banglish_string = self.__change(banglish_string, a_four_char, self.jukto_borno[a_four_char])
+            banglish_string = self._change_to(banglish_string, a_four_char, self.jukto_borno[a_four_char])
 
         for a_three_char in self.three_char:
-            banglish_string = self.__change(banglish_string, a_three_char, self.jukto_borno[a_three_char])
+            banglish_string = self._change_to(banglish_string, a_three_char, self.jukto_borno[a_three_char])
+
         banglish_string = self.__change_sworborno(banglish_string, 'rri')
 
         for a_two_char in self.two_char:
@@ -97,15 +97,15 @@ class BanglishToBengali(BengaliPhoneticParser):
                 banglish_string = self.__change_sworborno(banglish_string, a_two_char)
 
             elif self._is_byanjonborno(a_two_char):
-                banglish_string = self.__change(banglish_string, a_two_char, self.byanjon_borno[a_two_char])
+                banglish_string = self._change_to(banglish_string, a_two_char, self.byanjon_borno[a_two_char])
 
         for a_one_char in self.one_char:
             if self._is_sworborno(a_one_char):
                 banglish_string = self.__change_sworborno(banglish_string, a_one_char)
             elif self._is_byanjonborno(a_one_char):
-                banglish_string = self.__change(banglish_string, a_one_char, self.byanjon_borno[a_one_char])
+                banglish_string = self._change_to(banglish_string, a_one_char, self.byanjon_borno[a_one_char])
 
-        banglish_string = self.__change(banglish_string, 'o', '')
+        banglish_string = self._change_to(banglish_string, 'o', '')
 
         return banglish_string
 
