@@ -153,6 +153,10 @@ class BengaliPhoneticParser:
     def _exists(_map, segment):
         return segment.lower() in _map or segment.lower() in _map.values()
 
+    @staticmethod
+    def _change_to(txt, ch, nch):
+        return txt.replace(ch, nch)
+
     def _is_sworborno(self, segment):
         return self._exists(self.shoroborno, segment)
 
@@ -161,14 +165,6 @@ class BengaliPhoneticParser:
 
     def _is_kar(self, segment):
         return self._exists(self.kar, segment)
-
-
-
-    def change(self, txt, ch, nch):
-        pass
-
-    def change_sworborno(self, txt, ch):
-        pass
 
     def convert(self, text_to_convert):
         pass
