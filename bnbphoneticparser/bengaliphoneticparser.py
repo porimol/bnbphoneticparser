@@ -148,18 +148,30 @@ class BengaliPhoneticParser:
         "chr": "ছ্র", "dbhr": "দ্ভ্র"
     }
 
+    '''Segment instead of char, since it can be of multiple chars instead of one.'''
+    @staticmethod
+    def _exists(_map, segment):
+        return segment.lower() in _map or segment.lower() in _map.values()
+
+    def _is_sworborno(self, segment):
+        return self._exists(self.shoroborno, segment)
+
+    def _is_byanjonborno(self, segment):
+        return self._exists(self.byanjon_borno, segment)
+
+    def _is_kar(self, segment):
+        return self._exists(self.kar, segment)
+
+
 
     def change(self, txt, ch, nch):
         pass
 
-
     def change_sworborno(self, txt, ch):
         pass
 
-
     def convert(self, text_to_convert):
         pass
-
 
     def parse(self, text_to_parse):
         pass
