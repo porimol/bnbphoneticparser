@@ -11,4 +11,5 @@ class TestBanglishToBengali(TestCase):
         self.assertEqual(b2b.parse("muRi"), "মুড়ি")
         self.assertEqual(b2b.parse("AmAr"), "আমার")
         self.assertEqual(b2b.parse("AmAr poran"), "আমার পরান")
+        self.assertEqual(b2b.parse("mn val nei"), "মন ভাল নেই")
 
