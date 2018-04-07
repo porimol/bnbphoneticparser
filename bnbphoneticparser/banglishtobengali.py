@@ -121,12 +121,11 @@ class BanglishToBengali(BengaliPhoneticParser):
 
         return banglish_string
 
-
     def parse(self, banglish_text_to_parse):
-        separated_word = banglish_text_to_parse.split(" ")
         converted_text = ""
-        for i in range(0, len(separated_word)):
-            converted_text = converted_text + self.__convert(separated_word[i]) + " "
+
+        for word in banglish_text_to_parse.split(" "):
+            converted_text += '{} '.format(self.__convert(word))
 
         return converted_text.strip()
 
