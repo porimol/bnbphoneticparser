@@ -1,7 +1,7 @@
 # coding=utf-8
 import re
 
-from .bengaliphoneticparser import *
+from .bengaliphoneticparser import BengaliPhoneticParser
 
 
 class BanglishToBengali(BengaliPhoneticParser):
