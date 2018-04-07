@@ -1,3 +1,3 @@
 # coding=utf-8
-from .testbanglishtobengali import TestBanglishToBengali
-from .testbengalitobanglish import TestBengaliToBanglish
+from .banglishtobengali import TestBanglishToBengali
+from .bengalitobanglish import TestBengaliToBanglish
