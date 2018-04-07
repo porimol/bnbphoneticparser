@@ -1,5 +1,5 @@
 # coding=utf-8
-from .bengaliphoneticparser import *
+from .bengaliphoneticparser import BengaliPhoneticParser
 
 
 class BengaliToBanglish(BengaliPhoneticParser):
@@ -21,25 +21,25 @@ class BengaliToBanglish(BengaliPhoneticParser):
         self.jukto_borno_reverse_map = dict((v.strip(), k.strip()) for k, v in self.jukto_borno.items())
 
     def __change_sworborno(self, txt, ch):
-        sx = ""
+        sx = ''
         sx += txt
-        if ch == "আ":
-            asx = ""
+        if ch == 'আ':
+            asx = ''
             for i, _ch in enumerate(txt):
                 if i == 0:
-                    if _ch == "আ":
-                        asx += "a"
+                    if _ch == 'আ':
+                        asx += 'a'
                     else:
                         asx += _ch
                 else:
                     _prev_ch = txt[i - 1]
-                    if _ch == "আ" and self._is_sworborno(_prev_ch) or self._is_kar(_prev_ch):
-                        if _prev_ch == "a" or _prev_ch == "আ" or _prev_ch == "অ":
-                            asx += "a"
+                    if _ch == 'আ' and self._is_sworborno(_prev_ch) or self._is_kar(_prev_ch):
+                        if _prev_ch == 'a' or _prev_ch == 'আ' or _prev_ch == 'অ':
+                            asx += 'a'
                         else:
-                            asx += "ya"
-                    elif _ch == "অ" and self._is_byanjonborno(_prev_ch):
-                        asx += "আ"
+                            asx += 'ya'
+                    elif _ch == 'অ' and self._is_byanjonborno(_prev_ch):
+                        asx += 'আ'
                     elif self._is_kar(_ch):
                         asx += self.kar_reverse_map[_ch]
                     else:
@@ -58,23 +58,23 @@ class BengaliToBanglish(BengaliPhoneticParser):
                         sx = sx.replace(sx[ofe:ofe + len(ch)], self.shoroborno_reverse_map[ch])
                     else:
                         is_prev_one_kar_or_sworborno = self._is_sworborno(txt[ofe - 1]) or self._is_kar(txt[ofe - 1])
-                        if ch == "ও" and is_prev_one_kar_or_sworborno:
-                            sx = sx.replace(sx[ofe:ofe + 1], "ও")
-                        elif is_prev_one_kar_or_sworborno or txt[ofe - 1] == "ও":
+                        if ch == 'ও' and is_prev_one_kar_or_sworborno:
+                            sx = sx.replace(sx[ofe:ofe + 1], 'ও')
+                        elif is_prev_one_kar_or_sworborno or txt[ofe - 1] == 'ও':
                             sx = sx.replace(sx[ofe:ofe + len(ch)], self.shoroborno_reverse_map[ch])
                         else:
-                            if txt[ofe] != "ও":
+                            if txt[ofe] != 'ও':
                                 sx = sx.replace(sx[ofe:ofe + len(ch)], self.kar_reverse_map[ch])
                 ofs = ofe + 1
 
         return sx
 
     def __change_x(self, txt):
-        sx = ""
-        if txt == "এক্স":
-            sx += "x"
-        elif txt == "ক্স":
-            sx += "x"
+        sx = ''
+        if txt == 'এক্স':
+            sx += 'x'
+        elif txt == 'ক্স':
+            sx += 'x'
         else:
             sx += txt
 
@@ -111,7 +111,7 @@ class BengaliToBanglish(BengaliPhoneticParser):
         for a_three_char in self.threechar:
             bengali_string = self._change_to(bengali_string, a_three_char, self._get_replacement_char(a_three_char))
 
-        bengali_string = self.__change_sworborno(bengali_string, "rri")
+        bengali_string = self.__change_sworborno(bengali_string, 'rri')
 
         for a_two_char in self.twochar:
             if self._is_sworborno(a_two_char):
@@ -124,7 +124,7 @@ class BengaliToBanglish(BengaliPhoneticParser):
                 bengali_string = self.__change_sworborno(bengali_string, a_one_char)
             elif self._is_byanjonborno(a_one_char):
                 bengali_string = self._change_to(bengali_string, a_one_char, self.byanjon_borno_reverse_map[a_one_char])
-        bengali_string = self._change_to(bengali_string, "ও", "")
+        bengali_string = self._change_to(bengali_string, 'ও', '')
 
         return bengali_string
 
@@ -137,7 +137,7 @@ class BengaliToBanglish(BengaliPhoneticParser):
         return converted_text.strip()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     b2b = BengaliToBanglish()
     while True:
         str_token = input()
