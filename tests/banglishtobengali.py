@@ -9,4 +9,6 @@ class TestBanglishToBengali(TestCase):
         b2b = BanglishToBengali()
         self.assertEqual(b2b.parse("f"), "ফ")
         self.assertEqual(b2b.parse("muRi"), "মুড়ি")
+        self.assertEqual(b2b.parse("AmAr"), "আমার")
+        self.assertEqual(b2b.parse("AmAr poran"), "আমার পরান")
 

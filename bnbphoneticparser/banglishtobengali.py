@@ -1,4 +1,6 @@
 # coding=utf-8
+import re
+
 from .bengaliphoneticparser import *
 
 
@@ -7,78 +9,74 @@ class BanglishToBengali(BengaliPhoneticParser):
     def __change(self, txt, ch, nch):
         return txt.replace(ch, nch)
 
+    def _get_char_type(self, ch):
+        if ch in self.kar or ch in self.kar.values():
+            return 'k'
+        elif ch in self.shoroborno or ch in self.shoroborno.values():
+            return 'sb'
+        elif ch in self.byanjon_borno or ch in self.byanjon_borno.values():
+            return 'bb'
 
     def __change_sworborno(self, txt, ch):
         sx = ""
         sx += txt
-        if (ch.lower() == "a"):
+        if ch.lower() == "a":
             asx = ""
             for i in range(0, len(txt)):
-                if (i == 0):
-                    if ("" + txt[i].lower() == "a"):
+                if i == 0:
+                    if txt[i].lower() == "a":
                         asx += "আ"
                     else:
                         asx += txt[i]
                 else:
-                    if (("" + txt[i].lower() == "a") and (("" + txt[i - 1] in self.shoroborno.values()) or
-                                                              ("" + txt[i - 1] in self.shoroborno.keys()) or
-                                                              ("" + txt[i - 1] in self.kar.keys()) or
-                                                              ("" + txt[i - 1] in self.kar.values()))):
-                        if (("" + txt[i - 1] == "আ") or ("" + txt[i - 1] == "া") or ("" + txt[i - 1] == "a") or (
-                                        "" + txt[i - 1] == "A")):
-                            asx += "আ"
-                        else:
-                            asx += "য়া"
-                    elif (("" + txt[i].lower() == "a") and (("" + txt[i - 1] in self.byanjon_borno.values()) or
-                                                                ("" + txt[i - 1] in self.byanjon_borno.keys()) or (
-                                    "" + txt[i - 1] in self.byanjon_borno.keys())
-                                                            or ("" + txt[i - 1] in self.byanjon_borno.values()))):
-                        asx += "া"
+                    if txt[i].lower() == "a":
+                        prev_char_type = self._get_char_type(txt[i - 1])
+                        is_prev_one_kar_or_sworborno = prev_char_type == 'k' or prev_char_type == 'sb'
+                        is_prev_one_byanjon_borno = prev_char_type == 'bb'
+                        if is_prev_one_kar_or_sworborno:
+                            if txt[i - 1] == "আ" or txt[i - 1] == "া" or txt[i - 1] == "a" or txt[i - 1] == "A":
+                                asx += "আ"
+                            else:
+                                asx += "য়া"
+                        elif is_prev_one_byanjon_borno:
+                            asx += "া"
                     else:
-                        asx += "" + txt[i]
+                        asx += txt[i]
             return asx
         else:
             ofe = sx.find(ch, 0)
             ofs = 0
-            while ofs < len(txt) and (ofe != -1):
+            while ofs < len(txt) and ofe != -1:
                 ofe = sx.find(ch, ofs)
-                # print(ofe)
-                if (ofe == -1):
+                if ofe == -1:
                     break
                 else:
-                    if (ofe == 0):
-                        # print(sx)
+                    if ofe == 0:
                         sx = sx.replace(sx[ofe:ofe + len(ch)], self.shoroborno[ch])
                     else:
-                        if (ch == "o" and (("" + txt[ofe - 1] in self.shoroborno.values()) or (
-                                        "" + txt[ofe - 1] in self.shoroborno.keys())
-                                           or ("" + txt[ofe - 1] in self.kar.keys()) or (
-                                        "" + txt[ofe - 1] in self.kar.values()))):
+                        prev_char_type = self._get_char_type(txt[ofe - 1])
+                        is_prev_one_kar_or_sworborno = prev_char_type == 'k' or prev_char_type == 'sb'
+                        if ch == "o" and is_prev_one_kar_or_sworborno:
                             sx = sx.replace(sx[ofe:ofe + 1], "ও")
-                        elif (("" + txt[ofe - 1] in self.shoroborno.values()) or (
-                                        "" + txt[ofe - 1] in self.shoroborno.keys())
-                              or ("" + txt[ofe - 1] in self.kar.keys()) or (
-                                        "" + txt[ofe - 1] in self.kar.values()) or
-                                  ("" + txt[ofe - 1] == "o")):
+                        elif txt[ofe - 1] == 'o' or is_prev_one_kar_or_sworborno:
                             sx = sx.replace(sx[ofe:ofe + len(ch)], self.shoroborno[ch])
                         else:
-                            if ("" + txt[ofe] != "o"):
+                            if txt[ofe] != 'o':
                                 sx = sx.replace(sx[ofe:ofe + len(ch)], self.kar[ch])
                 ofs = ofe + 1
         return sx
 
-
-    def __change_x(self, txt, ch):
+    def __change_x(self, txt):
         sx = ""
         for i in range(0, len(txt)):
-            if (i == 0):
-                if ("" + txt[i].lower() == "x"):
+            if i == 0:
+                if "" + txt[i].lower() == "x":
                     sx += "এক্স"
                 else:
                     sx += txt[i]
             else:
-                if ("" + txt[i].lower() == "x"):
-                    if (self.__is_alphabet(txt[i - 1])):
+                if "" + txt[i].lower() == "x":
+                    if self.__is_alphabet(txt[i - 1]):
                         sx += "ক্স"
                     else:
                         sx += "এক্স"
@@ -86,31 +84,13 @@ class BanglishToBengali(BengaliPhoneticParser):
                     sx += txt[i]
         return sx
 
-
     def __is_alphabet(self, code):
         return code.isalpha()
 
-
     def __convert(self, text_to_convert):
-        banglish_string = text_to_convert. \
-            replace("A", "a"). \
-            replace("B", "b"). \
-            replace("C", "c"). \
-            replace("E", "e"). \
-            replace("F", "f"). \
-            replace("G", "g"). \
-            replace("H", "h"). \
-            replace("J", "j"). \
-            replace("K", "k"). \
-            replace("L", "l"). \
-            replace("M", "m"). \
-            replace("P", "p"). \
-            replace("Q", "q"). \
-            replace("V", "v"). \
-            replace("Y", "y"). \
-            replace("X", "x")
+        banglish_string = re.sub(r'[ABCEFGHJKLMPQVYX]', lambda x: x.group(0).lower(), text_to_convert)
+        banglish_string = self.__change_x(banglish_string)
 
-        banglish_string = self.__change_x(banglish_string, "x")
         for a_five_char in self.five_char:
             banglish_string = self.__change(banglish_string, a_five_char, self.jukto_borno[a_five_char])
 
@@ -138,12 +118,11 @@ class BanglishToBengali(BengaliPhoneticParser):
 
         return banglish_string
 
-
     def parse(self, banglish_text_to_parse):
-        separated_word = banglish_text_to_parse.split(" ")
         converted_text = ""
-        for i in range(0, len(separated_word)):
-            converted_text = converted_text + self.__convert(separated_word[i]) + " "
+
+        for word in banglish_text_to_parse.split(" "):
+            converted_text += '{} '.format(self.__convert(word))
 
         return converted_text.strip()
 

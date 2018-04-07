@@ -69,13 +69,13 @@ print(banglish2bengali.parse(banglish_text.strip()))
 Test Banglish to Bengali
 
 ```python
-pytest tests/testbenglishtobanglish.py
+pytest tests/benglishtobanglish.py
 ```
 
 Test Bengali to Banglish
 
 ```python
-pytest tests/testbanglishtobengali.py
+pytest tests/banglishtobengali.py
 ```
 
 ## Authors
