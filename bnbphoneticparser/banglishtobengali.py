@@ -1,4 +1,6 @@
 # coding=utf-8
+import re
+
 from .bengaliphoneticparser import *
 
 
@@ -85,31 +87,13 @@ class BanglishToBengali(BengaliPhoneticParser):
                     sx += txt[i]
         return sx
 
-
     def __is_alphabet(self, code):
         return code.isalpha()
 
-
     def __convert(self, text_to_convert):
-        banglish_string = text_to_convert. \
-            replace("A", "a"). \
-            replace("B", "b"). \
-            replace("C", "c"). \
-            replace("E", "e"). \
-            replace("F", "f"). \
-            replace("G", "g"). \
-            replace("H", "h"). \
-            replace("J", "j"). \
-            replace("K", "k"). \
-            replace("L", "l"). \
-            replace("M", "m"). \
-            replace("P", "p"). \
-            replace("Q", "q"). \
-            replace("V", "v"). \
-            replace("Y", "y"). \
-            replace("X", "x")
-
+        banglish_string = re.sub(r'[ABCEFGHJKLMPQVYX]', lambda x: x.group(0).lower(), text_to_convert)
         banglish_string = self.__change_x(banglish_string)
+
         for a_five_char in self.five_char:
             banglish_string = self.__change(banglish_string, a_five_char, self.jukto_borno[a_five_char])
 
