@@ -67,18 +67,17 @@ class BanglishToBengali(BengaliPhoneticParser):
                 ofs = ofe + 1
         return sx
 
-
-    def __change_x(self, txt, ch):
+    def __change_x(self, txt):
         sx = ""
         for i in range(0, len(txt)):
-            if (i == 0):
-                if ("" + txt[i].lower() == "x"):
+            if i == 0:
+                if "" + txt[i].lower() == "x":
                     sx += "এক্স"
                 else:
                     sx += txt[i]
             else:
-                if ("" + txt[i].lower() == "x"):
-                    if (self.__is_alphabet(txt[i - 1])):
+                if "" + txt[i].lower() == "x":
+                    if self.__is_alphabet(txt[i - 1]):
                         sx += "ক্স"
                     else:
                         sx += "এক্স"
@@ -110,7 +109,7 @@ class BanglishToBengali(BengaliPhoneticParser):
             replace("Y", "y"). \
             replace("X", "x")
 
-        banglish_string = self.__change_x(banglish_string, "x")
+        banglish_string = self.__change_x(banglish_string)
         for a_five_char in self.five_char:
             banglish_string = self.__change(banglish_string, a_five_char, self.jukto_borno[a_five_char])
 
