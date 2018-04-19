@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 
 # read readme file
-with open('README.md', 'r') as f:
+with open('README.rst', encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
@@ -18,4 +18,10 @@ setup(
     description='Bengali Phonetic Parser',
     long_description=long_description,
     keywords = ['NLP', 'Python', 'Bengali', 'Banglish'],
+    classifiers=[
+          'Development Status :: 2 - Pre-Alpha',
+          'Intended Audience :: Developers',
+          'License :: OSI Approved :: MIT License',
+          'Programming Language :: Python :: 3.5'
+      ],
 )
